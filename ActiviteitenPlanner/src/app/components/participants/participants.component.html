@@ -1,0 +1,22 @@
+<h3>Participants</h3>
+
+<p>
+    Total of {{participants.length}} participants with an average age of {{participants | averagePipe:'age'}} years.
+</p>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Age</th>
+          <th scope="col">email</th>
+        </tr>
+      </thead>
+    <tr *ngFor="let participant of participants">
+        <th scope="row">1</th>
+        <td>{{participant.name}}</td>
+        <td>{{participant.age}}</td>
+        <td>{{participant.email}}</td>
+    </tr>
+</table>
