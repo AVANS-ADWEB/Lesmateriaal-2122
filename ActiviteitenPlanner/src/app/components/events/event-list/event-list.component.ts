@@ -15,10 +15,17 @@ export class EventListComponent implements OnInit, OnDestroy {
 
 
   constructor(public eventService: EventService) {
-   }
+  }
 
+  /**
+   * we kunnen rechtstreeks van uit de template naar de eventservice.$events gaan
+   * en dan via de ASYNC pipe de inhoud bekijken
+   * OF
+   * we schrijven zelf de code om te subscriben en slaan de events op in de component. 
+   * Let op! Bij deze oplossing moet je zelf ook de subscription bijhouden
+   * en verwijderen bij de ngOnDestroy;
+   */
   ngOnInit(): void {
-    console.log('tik tok');
     this.subscription = this.eventService.$events.subscribe(events => {
       this.events = events;
     });

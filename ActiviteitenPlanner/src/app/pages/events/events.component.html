@@ -1,14 +1,20 @@
-<h2>Welcome to Event Manager</h2>
-
-
-<div class="row">
-
-    <div class="col-md-6">
-        <button (click)="showModal()">Create Event</button>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">My Events</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Look at events or create new ones!</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      </div>
     </div>
-    <app-event-list></app-event-list>
-
 </div>
+
+
+
+<div class="p-2">
+    <button class="btn btn-primary btn-lg" (click)="showModal()">Create Event</button>
+</div>
+
+<app-event-list></app-event-list>
+
 
 
 <!-- Dit is lelijk, kijk voor de mooie oplossing in participants.components.ts -->
