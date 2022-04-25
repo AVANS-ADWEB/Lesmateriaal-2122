@@ -1,0 +1,10 @@
+<div class="col-md-4" *ngFor="let event of eventService.$events | async">
+  <div class="card mb-4 box-shadow">
+    <div class="card-body">
+      <p class="card-text">{{event.name}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <small class="text-muted">{{event.date}}</small>
+      </div>
+    </div>
+  </div>
+</div>

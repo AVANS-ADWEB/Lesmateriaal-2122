@@ -1,0 +1,15 @@
+.mymodal {
+    position: fixed;
+    width: 100%;;
+    height: 100%;
+    left:0;
+    top:0;;;;;;;;;
+    background-color: rgba($color: #eee, $alpha: 0.5);
+}
+
+.mymodal .body {
+    margin:200px;
+    padding:10px;
+    border:1px solid black;
+    background-color: white;
+}

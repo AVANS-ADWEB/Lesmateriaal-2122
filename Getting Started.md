@@ -6,3 +6,31 @@
 
         npm install -g @angular/cli
 
+3. Ga naar folder ACtiviteitenPlanner 
+
+4. Installeer dependencies
+
+        npm install
+
+5. Start project
+
+        ng serve  //of
+        npm start 
+        
+
+## Optioneel - Verbind met Firebase
+
+Comming soon
+
+## Handige tips
+
+Errors met initialisatie van properties:
+
+tsconfig.json
+
+{
+  "compilerOptions": {
++   "strictPropertyInitialization": false,
+-   "strictPropertyInitialization": true,
+  }
+}

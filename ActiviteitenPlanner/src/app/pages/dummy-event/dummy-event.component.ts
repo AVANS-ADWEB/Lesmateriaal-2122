@@ -13,6 +13,11 @@ export class DummyEventComponent implements OnInit {
     { name: "Ger", age: 42, email: "ger@event.nl"}
   ];
 
+  public activities: any[] = [
+    { name: 'Blik gooien', min: 2, max: 8 },
+    { name: 'Pingpong', min: 2, max: 4}
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

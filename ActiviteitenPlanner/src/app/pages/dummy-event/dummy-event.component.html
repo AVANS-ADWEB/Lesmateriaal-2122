@@ -1,3 +1,15 @@
-<h2>Dummy Event</h2>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Dummy Event</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">A dummy event with dummy data to test and work on all the components.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      </div>
+    </div>
+</div>
 
-<app-participants [participants]="participants"></app-participants>
+
+<app-participants [participants]="participants" [activities]="activities"></app-participants>
+
+<hr>
+
+<app-activity-list [activities]="activities"></app-activity-list>

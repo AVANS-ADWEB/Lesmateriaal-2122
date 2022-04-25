@@ -1,0 +1,20 @@
+<h2>Welcome to Event Manager</h2>
+
+
+<div class="row">
+
+    <div class="col-md-6">
+        <button (click)="showModal()">Create Event</button>
+    </div>
+    <app-event-list></app-event-list>
+
+</div>
+
+
+<!-- Dit is lelijk, kijk voor de mooie oplossing in participants.components.ts -->
+<div class="mymodal" *ngIf="modal">
+    <div class="body">
+        <app-event-create></app-event-create>
+        <button (click)="hideModal()">Cancel</button>
+    </div>
+</div>

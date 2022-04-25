@@ -8,6 +8,11 @@ import { EventComponent } from './pages/event/event.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AveragePipePipe } from './helpers/average-pipe.pipe';
+import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { FormsModule } from '@angular/forms';
+import { EventCreateComponent } from './components/events/event-create/event-create.component';
+import { EventListComponent } from './components/events/event-list/event-list.component';
+import { EventsComponent } from './pages/events/events.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +20,17 @@ import { AveragePipePipe } from './helpers/average-pipe.pipe';
     DummyEventComponent,
     EventComponent,
     ParticipantsComponent,
-    AveragePipePipe
+    AveragePipePipe,
+    ActivityListComponent,
+    EventCreateComponent,
+    EventListComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

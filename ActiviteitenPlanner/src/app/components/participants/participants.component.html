@@ -4,19 +4,55 @@
     Total of {{participants.length}} participants with an average age of {{participants | averagePipe:'age'}} years.
 </p>
 
-<table class="table">
-    <thead class="thead-dark">
+<table class="table table-striped">
+  <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Age</th>
           <th scope="col">email</th>
+          <th>Activity</th>
+          <th>Action</th>
         </tr>
-      </thead>
+  </thead>
+  <tbody>
     <tr *ngFor="let participant of participants">
-        <th scope="row">1</th>
-        <td>{{participant.name}}</td>
-        <td>{{participant.age}}</td>
-        <td>{{participant.email}}</td>
+      <th scope="row">1</th>
+      <td>{{participant.name}}</td>
+      <td>{{participant.age}}</td>
+      <td>{{participant.email}}</td>
+      <td>{{participant.activity}}</td>
+      <td><button class="btn btn-default" (click)="open(participant)">Assign</button></td>
     </tr>
+  </tbody>
 </table>
+
+
+
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{selectedParticipant.name}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Choose activity</label>
+        <div class="input-group">
+          <select [(ngModel)]="selectedParticipant.activity">
+            <option value="">None!</option>
+            <option *ngFor="let activity of activities" [ngValue]="activity.name">{{activity.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      {{selectedParticipant | json}}
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<hr>
