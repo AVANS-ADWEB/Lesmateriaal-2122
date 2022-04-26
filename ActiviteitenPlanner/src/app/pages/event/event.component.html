@@ -1,8 +1,32 @@
-<div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Real event</h1>
+<div *ngIf="$event | async as event">
+
+
+  <div class="px-4 py-5 my-5 text-center" >
+    <h1 class="display-5 fw-bold">{{event.name}}</h1>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Work in progress....</p>
+      <p class="lead mb-4">Get ready for the event of your life on {{event.date}}!</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
       </div>
     </div>
+  </div>
+
+  <app-participants [participants]="event.participants" [activities]="event.activities"></app-participants>
+
+  <hr>
+
+  <app-activity-list [activities]="event.activities"></app-activity-list>
+
 </div>
+
+
+
+<!-- Loading screen -->
+<div class="px-4 py-5 my-5 text-center" *ngIf="!$event">
+  <h1 class="display-5 fw-bold">Loading event...</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Work in progress....</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+    </div>
+  </div>
+</div>
+

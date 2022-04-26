@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, Firestore, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, doc, Firestore, getDoc, onSnapshot } from 'firebase/firestore';
 import { BehaviorSubject, Observable, of, Subscriber } from 'rxjs';
 import { Event } from '../models/event';
 import { FirebaseService } from './firebase.service';
@@ -8,7 +8,10 @@ import { FirebaseService } from './firebase.service';
   providedIn: 'root'
 })
 export class EventService {
-
+  //    { name: "Rock Chergter", date: "30/09/2022" } as unknown as Event
+  // ];
+  //Option 1:
+  
   public $events : Observable<Event[]>;
 
   constructor(
@@ -16,22 +19,15 @@ export class EventService {
     private firebase: FirebaseService, //option 2: use custom generic FirebaseService 
   ) { 
 
-    //DUMMY DATA
-    // this._events = [
-    //    { name: "Paaspop", date: "11/04/2022" } as unknown as Event,
-    //    { name: "Pinkpop", date: "22/07/2022" } as unknown as Event,
-    //    { name: "Slowlands", date: "30/04/2022" } as unknown as Event,
-    //    { name: "Rock Chergter", date: "30/09/2022" } as unknown as Event
-    // ];
-    
-
-    //Option 1:
-    this.$events = new Observable((sub: Subscriber<any>) => {
+    //Option 1: Using Firebase SDK directly
+    this.$events = new Observable((sub: Subscriber<Event[]>) => {
    
       let unsubscribe = onSnapshot(collection(this.firestore, 'events'), (querySnapshot) => {
         const items: Event[] = [];
         querySnapshot.forEach((doc) => {
-          items.push(doc.data() as Event);
+          let event = doc.data() as Event;
+          event.id = doc.id;
+          items.push(event);
         });
 
         sub.next(items);
@@ -45,10 +41,9 @@ export class EventService {
 
   }
 
-  
   create(event: any) {
     
-    //Option 1: Using Firebase directly
+    //Option 1: Using Firebase SDK directly
     //{...event} is a workarround to fix error that addDoc does not allow the class Event
     addDoc(collection(this.firestore, 'events'), {...event});
 
@@ -56,4 +51,15 @@ export class EventService {
     //Option 2: Generic Service
     //this.firebase.AddDoc('events', event);
   }
+
+  getEvent(id: string): Observable<Event> {
+
+    //Option 1: Using Firebase SDK directly
+    return new Observable((sub: Subscriber<any>) => {
+      const unsub = onSnapshot(doc(this.firestore, "events", id), (doc) => {
+        sub.next(doc.data());
+      });
+    });
+  }
+
 }

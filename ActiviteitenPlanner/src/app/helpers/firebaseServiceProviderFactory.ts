@@ -20,6 +20,5 @@ export function firebaseServiceProviderFactory(): Firestore {
     // Initialize Cloud Firestore and get a reference to the service
     const db : Firestore = getFirestore(app);
     
-      
     return db;
 }
