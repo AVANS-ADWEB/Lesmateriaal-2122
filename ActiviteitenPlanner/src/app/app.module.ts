@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { EventCreateComponent } from './components/events/event-create/event-create.component';
 import { EventListComponent } from './components/events/event-list/event-list.component';
 import { EventsComponent } from './pages/events/events.component';
+import { Firestore } from 'firebase/firestore';
+import { firebaseServiceProviderFactory } from './helpers/firebaseServiceProviderFactory';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,11 @@ import { EventsComponent } from './pages/events/events.component';
     NgbModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: Firestore,
+    useFactory: firebaseServiceProviderFactory,
+    deps: []
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
