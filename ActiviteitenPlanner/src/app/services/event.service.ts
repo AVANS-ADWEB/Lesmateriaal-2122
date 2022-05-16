@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, getDoc, onSnapshot } from 'firebase/firestore';
-import { BehaviorSubject, Observable, of, Subscriber } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, mergeMap, Observable, of, Subscriber } from 'rxjs';
 import { Event } from '../models/event';
+import { ActivityService } from './activity.service';
 import { FirebaseService } from './firebase.service';
 
 @Injectable({
@@ -16,7 +17,8 @@ export class EventService {
 
   constructor(
     private firestore: Firestore, //option 1: use Firestore object (see firebaseServiceProviderFactory)
-    private firebase: FirebaseService, //option 2: use custom generic FirebaseService 
+    private firebase: FirebaseService, //option 2: use custom generic FirebaseService,
+    private activityService: ActivityService
   ) { 
 
     //Option 1: Using Firebase SDK directly
@@ -27,6 +29,8 @@ export class EventService {
         querySnapshot.forEach((doc) => {
           let event = doc.data() as Event;
           event.id = doc.id;
+          event.activities = [];//tmpm
+          event.participants = [];
           items.push(event);
         });
 
@@ -55,11 +59,23 @@ export class EventService {
   getEvent(id: string): Observable<Event> {
 
     //Option 1: Using Firebase SDK directly
-    return new Observable((sub: Subscriber<any>) => {
+    const $event = new Observable((sub: Subscriber<any>) => {
       const unsub = onSnapshot(doc(this.firestore, "events", id), (doc) => {
-        sub.next(doc.data());
+        let event : any = doc.data();
+        event.activities = [];
+        event.participants = [];
+        sub.next(event);
       });
     });
-  }
 
+    const $activities = this.activityService.getActivities(id);
+
+    return combineLatest([$event, $activities]).pipe(
+      map(results => {
+        const event = results[0];
+        event.activities = results[1];
+        return event;
+      })
+    );
+  }
 }

@@ -8,13 +8,14 @@ import { EventComponent } from './pages/event/event.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AveragePipePipe } from './helpers/average-pipe.pipe';
-import { ActivityListComponent } from './components/activity-list/activity-list.component';
-import { FormsModule } from '@angular/forms';
+import { ActivityListComponent } from './components/activities/activity-list/activity-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventCreateComponent } from './components/events/event-create/event-create.component';
 import { EventListComponent } from './components/events/event-list/event-list.component';
 import { EventsComponent } from './pages/events/events.component';
 import { Firestore } from 'firebase/firestore';
 import { firebaseServiceProviderFactory } from './helpers/firebaseServiceProviderFactory';
+import { ActivityCreateComponent } from './components/activities/activity-create/activity-create.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +27,15 @@ import { firebaseServiceProviderFactory } from './helpers/firebaseServiceProvide
     ActivityListComponent,
     EventCreateComponent,
     EventListComponent,
-    EventsComponent
+    EventsComponent,
+    ActivityCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule //zie activity-create
   ],
   providers: [{
     provide: Firestore,

@@ -14,12 +14,15 @@
 
   <hr>
 
+  <button (click)="createActivity()">Create Activity</button>
   <app-activity-list [activities]="event.activities"></app-activity-list>
 
+
+  <ng-template #modalContent let-modal>
+    <app-activity-create [eventId]="selectedId" (onSubmit)="modal.close('Save click')" (onCancel)="modal.dismiss('cancel')"></app-activity-create>
+  </ng-template>
+
 </div>
-
-
-
 <!-- Loading screen -->
 <div class="px-4 py-5 my-5 text-center" *ngIf="!$event">
   <h1 class="display-5 fw-bold">Loading event...</h1>
