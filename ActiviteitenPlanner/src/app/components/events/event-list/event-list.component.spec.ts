@@ -1,6 +1,13 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { EventService } from 'src/app/services/event.service';
 
 import { EventListComponent } from './event-list.component';
+
+let eventService = {
+  $events: of([{name: 'Test event'}])
+}
 
 describe('EventListComponent', () => {
   let component: EventListComponent;
@@ -8,7 +15,10 @@ describe('EventListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EventListComponent ]
+      declarations: [ EventListComponent ],
+      providers: [
+        {provide: EventService, useValue: eventService}, //useClass is ook een optie
+      ]
     })
     .compileComponents();
   });
@@ -22,4 +32,6 @@ describe('EventListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });

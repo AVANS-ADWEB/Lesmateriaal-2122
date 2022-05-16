@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DummyEventComponent } from './dummy-event.component';
 
-describe('DummyEventComponent', () => {
+xdescribe('DummyEventComponent', () => {
   let component: DummyEventComponent;
   let fixture: ComponentFixture<DummyEventComponent>;
 

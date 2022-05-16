@@ -14,8 +14,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
 
-  constructor(public eventService: EventService) {
-  }
+  constructor(public eventService: EventService) {  }
 
   /**
    * we kunnen rechtstreeks van uit de template naar de eventservice.$events gaan
