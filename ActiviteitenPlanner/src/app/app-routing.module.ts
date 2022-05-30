@@ -5,8 +5,8 @@ import { EventComponent } from './pages/event/event.component';
 import { EventsComponent } from './pages/events/events.component';
 
 const routes: Routes = [
+  { path: 'events-demo', component: DummyEventComponent},
   { path: 'events/:id', component: EventComponent},
-  { path: 'events/dummy-event', component: DummyEventComponent},
   { path: '', component: EventsComponent}
 ];
 

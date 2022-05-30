@@ -16,6 +16,9 @@ import { EventsComponent } from './pages/events/events.component';
 import { Firestore } from 'firebase/firestore';
 import { firebaseServiceProviderFactory } from './helpers/firebaseServiceProviderFactory';
 import { ActivityCreateComponent } from './components/activities/activity-create/activity-create.component';
+import { ParticipantListComponent } from './components/participants/participant-list/participant-list.component';
+import { BarsComponent } from './helpers/bars/bars.component';
+import { BarsPipe } from './helpers/bars/bars.pipe';
 
 @NgModule({
   declarations: [
@@ -24,11 +27,14 @@ import { ActivityCreateComponent } from './components/activities/activity-create
     EventComponent,
     ParticipantsComponent,
     AveragePipePipe,
+    BarsPipe,
     ActivityListComponent,
     EventCreateComponent,
     EventListComponent,
     EventsComponent,
-    ActivityCreateComponent
+    ActivityCreateComponent,
+    ParticipantListComponent,
+    BarsComponent
   ],
   imports: [
     BrowserModule,

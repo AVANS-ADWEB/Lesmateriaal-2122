@@ -1,0 +1,7 @@
+<h2>Participants</h2>
+
+<ul>
+    <li *ngFor="let participant of $particpants | async">
+        {{participant | json}}
+    </li>
+</ul>

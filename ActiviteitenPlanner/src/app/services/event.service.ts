@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore, getDoc, onSnapshot } from 'firebase/firestore';
 import { BehaviorSubject, combineLatest, map, mergeMap, Observable, of, Subscriber } from 'rxjs';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 import { Event } from '../models/event';
 import { ActivityService } from './activity.service';
 import { FirebaseService } from './firebase.service';
@@ -9,6 +10,7 @@ import { FirebaseService } from './firebase.service';
   providedIn: 'root'
 })
 export class EventService {
+  
   //    { name: "Rock Chergter", date: "30/09/2022" } as unknown as Event
   // ];
   //Option 1:
@@ -36,6 +38,7 @@ export class EventService {
 
         sub.next(items);
       });
+
   });
 
     //OR
@@ -43,6 +46,29 @@ export class EventService {
     //this.$events = this.firebase.collection<Event>('events');
 
 
+  }
+
+  getUser(id: any) : Observable<any>
+  {
+      return new Observable((sub: Subscriber<any>) => {
+        const unsub = onSnapshot(doc(this.firestore, "users", id), (doc) => {
+          let user : any = doc.data() as any;
+          sub.next(user);
+        });
+      });
+  }
+
+  getParticipants(eventId: string): Observable<any[]> {
+
+    const $participants = this.firebase.collection(`events/${eventId}/participants`);
+
+    let $users = $participants.pipe(
+      mergeMap((participants: any[]) =>  {
+        return combineLatest(participants.map(p => this.firebase.doc('users', p.id)))
+      })
+    );
+
+    return $users;
   }
 
   create(event: any) {
@@ -58,10 +84,11 @@ export class EventService {
 
   getEvent(id: string): Observable<Event> {
 
-    //Option 1: Using Firebase SDK directly
+    //DOC
     const $event = new Observable((sub: Subscriber<any>) => {
       const unsub = onSnapshot(doc(this.firestore, "events", id), (doc) => {
         let event : any = doc.data();
+        
         event.activities = [];
         event.participants = [];
         sub.next(event);

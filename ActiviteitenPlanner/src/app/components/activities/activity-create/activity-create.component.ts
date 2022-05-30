@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { ActivityService } from 'src/app/services/activity.service';
 
@@ -31,7 +31,7 @@ export class ActivityCreateComponent implements OnInit {
     }); //empty form
 
     this.activityForm.valueChanges
-      .pipe(debounceTime(1000))
+      // .pipe(debounceTime(1000))
       .subscribe(f => {
       console.log(f);
     })

@@ -18,7 +18,26 @@ export class DummyEventComponent implements OnInit {
     { name: 'Pingpong', min: 2, max: 4}
   ];
 
-  constructor() { }
+  
+  public poules: any[] = [];
+
+  constructor() {
+
+    //add 3 pules
+    for(var i = 0; i < 3; i++)
+    {
+      this.addPoule("Poule " + (i + 1));
+    }
+  }
+
+  public addPoule(name: string){
+
+    this.poules.push({
+      name: name,
+      players: this.participants
+    });
+  }
+
 
   ngOnInit(): void {
   }

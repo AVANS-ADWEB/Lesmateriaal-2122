@@ -1,5 +1,6 @@
+import { expressionType } from '@angular/compiler/src/output/output_ast';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { of } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { EventService } from 'src/app/services/event.service';
@@ -15,17 +16,16 @@ describe('EventComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [],
       declarations: [ EventComponent ],
       providers: [
         {provide: EventService, useValue: {
           getEvent: () => of({name: 'Test Event'})
         }},
         {provide: ActivatedRoute, useValue: {
-          paramMap: of({ get: () => '1' })
-        }}      
+          paramMap: of({ get: () => 'test'})
+        }}
       ]
-    })
+    }) 
     .compileComponents();
   });
 
@@ -43,8 +43,7 @@ describe('EventComponent', () => {
     //zoek alle HTML op
     const compiled = fixture.nativeElement as HTMLElement;
 
-
     expect(compiled.querySelector('h1')?.textContent).toContain('Test Event');
-    done();
+  
   });
 });

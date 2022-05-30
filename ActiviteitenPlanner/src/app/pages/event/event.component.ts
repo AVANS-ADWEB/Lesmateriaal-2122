@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Firestore } from 'firebase/firestore';
 import { Observable, switchMap } from 'rxjs';
+import { AveragePipePipe } from 'src/app/helpers/average-pipe.pipe';
 import { EventService } from 'src/app/services/event.service';
 import { Event } from '../../models/event';
 
@@ -29,13 +30,14 @@ export class EventComponent implements OnInit {
 
     //get active event 
     this.$event = this.route.paramMap.pipe(switchMap(params => {
-        
-        this.selectedId = String(params.get('id'));
-        console.log(this.selectedId);
+          
+          this.selectedId = String(params.get('id'));
+          console.log(this.selectedId);
 
-        return this.eventService.getEvent(this.selectedId);
+          //Get Event!
+          return this.eventService.getEvent(this.selectedId);
 
-    }));
+      }));
   }
 
   createActivity(){
