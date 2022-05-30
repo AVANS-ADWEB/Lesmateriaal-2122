@@ -31,6 +31,10 @@ export class ParticipantsComponent implements OnInit {
     
   }
 
+  dragEnd(event: any){
+    console.log(event);
+  }
+
 
   open(participant: any) {
     this.selectedParticipant = participant;

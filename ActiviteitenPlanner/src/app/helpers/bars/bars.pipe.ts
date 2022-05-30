@@ -6,7 +6,7 @@ import { Bar } from "./bars.component";
     pure: true, //Dit kan nog slimmer!
 })
 export class BarsPipe implements PipeTransform{
-  transform(list: any){
-      return list.map((e: any) => new Bar(e.name, e.players.length));
+  transform(list: any){   
+      return list.map((e: any) => new Bar(e.name, e.participants.length));
   }
 }

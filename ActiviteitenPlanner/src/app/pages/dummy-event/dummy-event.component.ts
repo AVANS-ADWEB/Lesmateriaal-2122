@@ -14,28 +14,14 @@ export class DummyEventComponent implements OnInit {
   ];
 
   public activities: any[] = [
-    { name: 'Blik gooien', min: 2, max: 8 },
-    { name: 'Pingpong', min: 2, max: 4}
+    { name: 'Blik gooien', min: 2, max: 8, participants: [] },
+    { name: 'Pingpong', min: 2, max: 4, participants: []}
   ];
 
   
-  public poules: any[] = [];
-
   constructor() {
-
-    //add 3 pules
-    for(var i = 0; i < 3; i++)
-    {
-      this.addPoule("Poule " + (i + 1));
-    }
-  }
-
-  public addPoule(name: string){
-
-    this.poules.push({
-      name: name,
-      players: this.participants
-    });
+    //mag ik hier wel zijn?
+    this.firebase.user
   }
 
 

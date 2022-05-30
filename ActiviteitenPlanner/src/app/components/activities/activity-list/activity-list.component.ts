@@ -15,4 +15,8 @@ export class ActivityListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addParticipant(activity: any, event: any){
+    event.dropData.activity = activity;
+    activity.participants.push(event.dropData);
+  }
 }

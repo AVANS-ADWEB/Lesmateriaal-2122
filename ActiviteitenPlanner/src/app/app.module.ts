@@ -19,6 +19,8 @@ import { ActivityCreateComponent } from './components/activities/activity-create
 import { ParticipantListComponent } from './components/participants/participant-list/participant-list.component';
 import { BarsComponent } from './helpers/bars/bars.component';
 import { BarsPipe } from './helpers/bars/bars.pipe';
+import { DragAndDropModule } from 'angular-draggable-droppable';
+import { AuthComponent } from './components/auth/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -34,14 +36,16 @@ import { BarsPipe } from './helpers/bars/bars.pipe';
     EventsComponent,
     ActivityCreateComponent,
     ParticipantListComponent,
-    BarsComponent
+    BarsComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule //zie activity-create
+    ReactiveFormsModule, //zie activity-create,
+    DragAndDropModule
   ],
   providers: [{
     provide: Firestore,

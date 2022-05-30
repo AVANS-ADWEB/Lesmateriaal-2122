@@ -1,0 +1,13 @@
+<div *ngIf="firebase.user$ | async as user;else loginTemplate" class="pr-2">
+    <P>Welcome {{user.userName}}</P>
+    <img [src]="user.photoURL">
+    <button (click)="logout()">Logout</button>
+</div>
+
+<ng-template #loginTemplate>
+    <input [(ngModel)]="form.email" type="text">
+    <input [(ngModel)]="form.password" ype="password">
+    <button (click)="login()">Login</button>
+    | OR | 
+    <button (click)="firebase.loginGoogle()">Login with google</button>
+</ng-template>

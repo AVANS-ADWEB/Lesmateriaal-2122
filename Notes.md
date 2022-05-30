@@ -28,3 +28,6 @@ https://firebase.google.com/docs/firestore/
 
 https://blog.angular-university.io/angular-dependency-injection/
 
+# Links about Auth
+
+https://medium.com/@himanshusaraswat/are-you-using-firebase-authentication-write-an-auth-guard-with-just-2-lines-of-code-433ac1993aa6

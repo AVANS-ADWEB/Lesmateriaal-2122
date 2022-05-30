@@ -6,6 +6,7 @@ import { FirebaseApp, initializeApp } from "firebase/app";
 import { addDoc, collection, doc, DocumentData, Firestore, getFirestore, onSnapshot } from "firebase/firestore";
 import { debounceTime, Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 
 
 @Injectable({
@@ -13,8 +14,14 @@ import { environment } from 'src/environments/environment';
 })
 export class FirebaseService {
 
+  logout() {
+    signOut(this.auth);
+  }
+
   db: Firestore;
   cache: any;//dict
+  auth: any;
+  user$: Observable<any>;
 
   constructor() { 
     //INSTRUCTIES FIREBASE
@@ -32,6 +39,59 @@ export class FirebaseService {
       const app = initializeApp(firebaseConfig);
       // Initialize Cloud Firestore and get a reference to the service
       this.db = getFirestore(app);
+
+      this.auth = getAuth(app);
+
+      this.user$ = new Observable((subscribers: any) => {
+        onAuthStateChanged(this.auth, (user) => {
+          if (user) {
+            subscribers.next(user);
+          } else {
+            subscribers.next(null);
+          }
+        });
+        
+      })
+
+
+  }
+
+  login(email:string, password:string){
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+
+  }
+
+  loginGoogle(){
+    const provider = new GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+    signInWithPopup(this.auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential : any = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
 
   }
 
